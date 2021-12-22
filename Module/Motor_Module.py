@@ -4,24 +4,24 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 ###############################################################################
 class Motor():
-    # Initialization | Enable pin: Speed | Input pin: Direction
-    def __init__(self, ENAa, IN1a, IN2a, ENAb, IN1b, IN2b):
+    # Initialization | ENBle pin: Speed | Input pin: Direction
+    def __init__(self, ENA, IN1, IN2, ENB, IN3, IN4):
         # self -> Referencing to this instance of the class
         # a & b for Left & Right motors
-        self.ENAa, self.IN1a, self.IN2a = ENAa, IN1a, IN2a
-        self.ENAb, self.IN1b, self.IN2b = ENAb, IN1b, IN2b
+        self.ENA, self.IN1, self.IN2 = ENA, IN1, IN2
+        self.ENB, self.IN3, self.IN4 = ENB, IN3, IN4
 
         # Declaring pins as outputs
-        GPIO.setup(self.ENAa, GPIO.OUT)
-        GPIO.setup(self.IN1a, GPIO.OUT)
-        GPIO.setup(self.IN2a, GPIO.OUT)
-        GPIO.setup(self.ENAb, GPIO.OUT)
-        GPIO.setup(self.IN1b, GPIO.OUT)
-        GPIO.setup(self.IN2b, GPIO.OUT)
+        GPIO.setup(self.ENA, GPIO.OUT)
+        GPIO.setup(self.IN1, GPIO.OUT)
+        GPIO.setup(self.IN2, GPIO.OUT)
+        GPIO.setup(self.ENB, GPIO.OUT)
+        GPIO.setup(self.IN3, GPIO.OUT)
+        GPIO.setup(self.IN4, GPIO.OUT)
 
-        # PWM pin is Enable pin. 100 if Frequency
+        # PWM pin is ENBle pin. 100 if Frequency
         # Originally, speed is zero
-        self.PWMa, self.PWMb = GPIO.PWM(self.ENAa, 100), GPIO.PWM(self.ENAb, 100)
+        self.PWMa, self.PWMb = GPIO.PWM(self.ENA, 100), GPIO.PWM(self.ENB, 100)
         self.PWMa.start(0)
         self.PWMb.start(0)
         self.mySpeed = 0
@@ -55,18 +55,18 @@ class Motor():
 
         # If the values is negative -> Change direction
         if (leftSpeed > 0):
-            GPIO.output(self.IN1a, GPIO.LOW)
-            GPIO.output(self.IN2a, GPIO.HIGH)
+            GPIO.output(self.IN1, GPIO.LOW)
+            GPIO.output(self.IN2, GPIO.HIGH)
         else:
-            GPIO.output(self.IN1a, GPIO.HIGH)
-            GPIO.output(self.IN2a, GPIO.LOW)
+            GPIO.output(self.IN1, GPIO.HIGH)
+            GPIO.output(self.IN2, GPIO.LOW)
 
         if (rightSpeed > 0):
-            GPIO.output(self.IN1b, GPIO.LOW)
-            GPIO.output(self.IN2b, GPIO.HIGH)
+            GPIO.output(self.IN3, GPIO.LOW)
+            GPIO.output(self.IN4, GPIO.HIGH)
         else:
-            GPIO.output(self.IN1b, GPIO.HIGH)
-            GPIO.output(self.IN2b, GPIO.LOW)
+            GPIO.output(self.IN3, GPIO.HIGH)
+            GPIO.output(self.IN4, GPIO.LOW)
 
         sleep(delay)
 
