@@ -1,11 +1,14 @@
-import Jetson.GPIO as GPIO
+import Jetson.GPIO as GPIO # Allows us to interface with the GPIO pins
 from time import sleep # For delay
+
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 ###############################################################################
 class Motor():
-    # Initialization | ENBle pin: Speed | Input pin: Direction
+    # Initialization | Enable pin: Speed | Input pin: Direction
     def __init__(self, ENA, IN1, IN2, ENB, IN3, IN4):
+
         # self -> Referencing to this instance of the class
         # a & b for Left & Right motors
         self.ENA, self.IN1, self.IN2 = ENA, IN1, IN2
@@ -21,9 +24,10 @@ class Motor():
 
         # PWM pin is ENBle pin. 100 if Frequency
         # Originally, speed is zero
-        self.PWMa, self.PWMb = GPIO.PWM(self.ENA, 100), GPIO.PWM(self.ENB, 100)
-        self.PWMa.start(0)
-        self.PWMb.start(0)
+        self.PWMa = GPIO.PWM(channel=self.ENA, frequency_hz=20)
+        self.PWMb = GPIO.PWM(channel=self.ENB, frequency_hz=20)
+        self.PWMa.start(duty_cycle_percent=0)
+        self.PWMb.start(duty_cycle_percent=0)
         self.mySpeed = 0
 
     def move(self, speed = 0.5, turn = 0, delay = 0): # Using normalized value
@@ -78,12 +82,12 @@ class Motor():
 ###############################################################################
 def main():
     motor.move(0.6, 0, 2)
-    motor.stop(time=0)
+    motor.stop(time=1)
     motor.move(-0.5, 0.2, 2)
-    motor.stop(time=0)
+    motor.stop(time=1)
 
 if __name__ == '__main__':
     # Creating instance
-    motor = Motor(2, 3, 4, 17, 22, 27)
+    motor = Motor(12, 16, 20, 13, 19, 26)
     main()
 ###############################################################################
