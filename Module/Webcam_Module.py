@@ -25,7 +25,7 @@ def get_image(display = False, resize = False, size = [480, 240]):
     if resize:
         img = imutils.resize(img, width=size[0],height=size[1])
 
-    cv2.imwrite('/home/pi/Documents/Self_Driving_Car/Murtaza/fixImg1.jpg', img)
+    cv2.imwrite('/home/jetson/Documents/Jetson_Nano/Temp/temp_img.jpg', img)
 
     return img
 ################################################################################
