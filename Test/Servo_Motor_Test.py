@@ -2,6 +2,9 @@ from adafruit_servokit import ServoKit
 import board
 import busio
 import time
+import cv2
+###############################################################################
+trackbarNameServo = 'Trackbar - Servo'
 
 # On the Jetson Nano
 # Bus 0 (pins 28,27) is board SCL_1, SDA_1 in the jetson board definition file
@@ -13,21 +16,30 @@ print("Initializing ServoKit")
 kit = ServoKit(channels = 16, i2c = i2c_bus0)
 # kit[0] is the servo number 01, kit[1] is the servo number 02
 print("Done initializing")
-while True:
-    degree = float(input('>> Angle: '))
-    # kit.servo[0].angle = degree
-    # kit.servo[0].angle = 180
-    # kit.continuous_servo[0].throttle = degree
-    kit.continuous_servo[0].throttle = degree
+###############################################################################
+def empty_function(a):
+    pass
+
+# def trackbar_init_servo():
+#     servoSteering_init = 0
+#     cv2.namedWindow(trackbarNameServo)
+#     cv2.resizeWindow(trackbarNameServo, 300, 130)
+#     cv2.createTrackbar("Steering Angle", trackbarNameServo, servoSteering_init, 1, 
+#                        empty_function)
+
+# def trackbar_get_value_servo():
+#     servoSteering = cv2.getTrackbarPos(trackbarname="Steering Angle", winname=trackbarNameServo)
+#     return servoSteering
     
-    # if (angle == 0):
-    #     break
-    # sweep = range(0, 180)
-    # for degree in sweep :
-    #     kit.servo[0].angle = degree
-    #     time.sleep(0.01)
+###############################################################################
+def main():
+    while True:
+        steering = float(input('>> Angle: '))
+        # trackbar_init_servo()
+
+        # steering = trackbar_get_value_servo()
+        kit.continuous_servo[0].throttle = steering
         
-    # sweep = range(180, 0, -1)
-    # for degree in sweep :
-    #     kit.servo[0].angle = degree
-    #     time.sleep(0.01)
+    
+if __name__ == '__main__':
+    main()

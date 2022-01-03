@@ -84,8 +84,9 @@ def main():
     # motor = Motor(32, 36, 38, 33, 35, 37)
     motor.move(speed=1, turn=0.1, runTime=5)
     motor.move(speed=1, turn=-0.5, runTime=5)
-    motor.move(speed=1, turn=0.5, runTime=5)
     motor.move(speed=1, turn=0.1, runTime=5)
+    motor.move(speed=1, turn=0.5, runTime=5)
+    motor.move(speed=1, turn=0.05, runTime=5)
 
 if (__name__ == '__main__'):
     main()
