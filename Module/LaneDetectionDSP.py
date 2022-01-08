@@ -43,6 +43,12 @@ def region_of_interest(thresholedImg):
     mask = np.zeros_like(thresholedImg)
     cv2.fillPoly(mask, ROI, (255, 255, 255))
     croppedEdges = cv2.bitwise_and(thresholedImg, mask)
+    
+    cv2.circle(img=croppedEdges, center=pointsROI[0], radius=10, color=(255, 255, 255), thickness=cv2.FILLED)
+    cv2.circle(img=croppedEdges, center=pointsROI[2], radius=10, color=(255, 255, 255), thickness=cv2.FILLED)
+    cv2.circle(img=croppedEdges, center=pointsROI[3], radius=10, color=(255, 255, 255), thickness=cv2.FILLED)
+    cv2.circle(img=croppedEdges, center=pointsROI[1], radius=10, color=(255, 255, 255), thickness=cv2.FILLED)
+    
     return croppedEdges
 
 def average_slope_intercept(image, lines):
@@ -269,7 +275,7 @@ def detect_lane_DSP(originalImg, display = False):
 def main():
     while True:
         orgImg = wcM.get_image(display = False, resize = False, size = [480, 240])
-        detect_lane_DSP(orgImg)
+        detect_lane_DSP(orgImg, display = True)
 
         if (cv2.waitKey(1) and 0xFF == ord('q')):
             break
